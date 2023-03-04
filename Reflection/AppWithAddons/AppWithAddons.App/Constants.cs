@@ -9,13 +9,16 @@
     Revision History  :
     Date        Author      Ref     Revision 
     04/03/2023  Rilegis     1       Class definition and 'AddonsDirectory' constant definition.
+    04/03/2023  Rilegis     2       Added some basic summaries.
 **********************************************************************/
 
 namespace AppWithAddons.App
 {
     internal static class Constants
     {
-        // Directory that will contain all addons
+        /// <summary>
+        /// Directory containing all *.dll addons assemblies.
+        /// </summary>
         internal const string AddonsDirectory = @".\addons";
     }
 }
