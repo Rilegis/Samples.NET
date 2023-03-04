@@ -9,7 +9,7 @@
     Revision History  :
     Date        Author      Ref     Revision 
     04/03/2023  Rilegis     1       First code commit.
-    04/03/2023  Rilegis     2       Added "AddonsDirectory" handling.
+    04/03/2023  Rilegis     2       Added "AddonsDirectory" existence check.
 **********************************************************************/
 
 namespace AppWithAddons.App
@@ -28,7 +28,7 @@ namespace AppWithAddons.App
                 {
                     Console.WriteLine($"No addons directory found...creating '{Constants.AddonsDirectory}' directory.");
                     Directory.CreateDirectory(Constants.AddonsDirectory);
-                }                
+                }
             }
             catch (Exception ex)
             {
