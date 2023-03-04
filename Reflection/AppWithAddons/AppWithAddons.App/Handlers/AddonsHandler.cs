@@ -11,6 +11,7 @@
     04/03/2023  Rilegis     1       Class definition and 'LoadAddons()' method implementation.
     04/03/2023  Rilegis     2       Implemented 'InitializeAddon(IAddon addon)' and 'InitializeAddons()' methods for addons initialization...duh.
     04/03/2023  Rilegis     3       Modified 'InitializeAddons()' method for multithreaded processing.
+    04/03/2023  Rilegis     4       Implemented 'TerminateAddon(IAddon addon)' and 'TerminateAddons()' methods for addons termination...again...duh.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -82,6 +83,31 @@ namespace AppWithAddons.App.Handlers
             try
             {
                 addon.Initialize();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[RUNTIME EXCEPTION] {ex.Message}");
+            }
+        }
+
+        internal static void TerminateAddons()
+        {
+            // Since no addons depend from one another i can terminate them at the same time.
+            try
+            {
+                Addons.AsParallel().ForAll(addon => { TerminateAddon(addon.Value); });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[RUNTIME EXCEPTION] {ex.Message}");
+            }
+        }
+
+        private static void TerminateAddon(IAddon addon)
+        {
+            try
+            {
+                addon.Terminate();
             }
             catch (Exception ex)
             {
