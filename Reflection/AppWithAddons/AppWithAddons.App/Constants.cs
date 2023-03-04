@@ -10,10 +10,14 @@
     Date        Author      Ref     Revision 
     04/03/2023  Rilegis     1       Class definition and 'AddonsDirectory' constant definition.
     04/03/2023  Rilegis     2       Added some basic summaries.
+    04/03/2023  Rilegis     3       Added some more basic summaries.
 **********************************************************************/
 
 namespace AppWithAddons.App
 {
+    /// <summary>
+    /// This class contains basic constants needed for the app's execution.
+    /// </summary>
     internal static class Constants
     {
         /// <summary>
