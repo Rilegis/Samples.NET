@@ -13,6 +13,7 @@
     04/03/2023  Rilegis     3       Modified 'InitializeAddons()' method for multithreaded processing.
     04/03/2023  Rilegis     4       Implemented 'TerminateAddon(IAddon addon)' and 'TerminateAddons()' methods for addons termination...again...duh.
     04/03/2023  Rilegis     5       Added some basic summaries.
+    04/03/2023  Rilegis     6       Added some more basic summaries.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -20,6 +21,9 @@ using System.Reflection;
 
 namespace AppWithAddons.App.Handlers
 {
+    /// <summary>
+    /// This class contains all the methods needed to handle the addons.
+    /// </summary>
     internal static class AddonsHandler
     {
         /// <summary>
