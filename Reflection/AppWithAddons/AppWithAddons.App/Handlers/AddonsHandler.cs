@@ -10,6 +10,7 @@
     Date        Author      Ref     Revision 
     04/03/2023  Rilegis     1       Class definition and 'LoadAddons()' method implementation.
     04/03/2023  Rilegis     2       Implemented 'InitializeAddon(IAddon addon)' and 'InitializeAddons()' methods for addons initialization...duh.
+    04/03/2023  Rilegis     3       Modified 'InitializeAddons()' method for multithreaded processing.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -65,12 +66,10 @@ namespace AppWithAddons.App.Handlers
 
         internal static void InitializeAddons()
         {
+            // Since no addons depend from one another i can initialize them at the same time.
             try
             {
-                foreach (IAddon addon in Addons.Values)
-                {
-                    InitializeAddon(addon);
-                }
+                Addons.AsParallel().ForAll(addon => { InitializeAddon(addon.Value); });
             }
             catch (Exception ex)
             {
