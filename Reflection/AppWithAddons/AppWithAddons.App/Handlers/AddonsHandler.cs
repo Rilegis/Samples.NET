@@ -14,6 +14,7 @@
     04/03/2023  Rilegis     4       Implemented 'TerminateAddon(IAddon addon)' and 'TerminateAddons()' methods for addons termination...again...duh.
     04/03/2023  Rilegis     5       Added some basic summaries.
     04/03/2023  Rilegis     6       Added some more basic summaries.
+    04/03/2023  Rilegis     7       Fixed 'loadedAddons' dictionary key starting from -1.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -56,12 +57,13 @@ namespace AppWithAddons.App.Handlers
                     assemblyTypes = assembly.GetTypes().Where(t => typeof(IAddon).IsAssignableFrom(t) && !t.IsInterface).ToArray();
 
                     // Once all viable types are found, create an instance at runtime for each one.
-                    int i = -1;
+                    int i = 0;
                     foreach (Type type in assemblyTypes)
                     {
                         var addonInstance = Activator.CreateInstance(type) as IAddon;
                         Console.WriteLine($"Found addon: '{addonInstance.Name}' (v{addonInstance.Version})...loading");
-                        loadedAddons.Add(i++, addonInstance);
+                        loadedAddons.Add(i, addonInstance);
+                        i++;
                     }
                 }
 
