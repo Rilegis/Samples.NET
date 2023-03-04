@@ -12,6 +12,7 @@
     04/03/2023  Rilegis     2       Implemented 'InitializeAddon(IAddon addon)' and 'InitializeAddons()' methods for addons initialization...duh.
     04/03/2023  Rilegis     3       Modified 'InitializeAddons()' method for multithreaded processing.
     04/03/2023  Rilegis     4       Implemented 'TerminateAddon(IAddon addon)' and 'TerminateAddons()' methods for addons termination...again...duh.
+    04/03/2023  Rilegis     5       Added some basic summaries.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -21,8 +22,15 @@ namespace AppWithAddons.App.Handlers
 {
     internal static class AddonsHandler
     {
+        /// <summary>
+        /// Dictionary instance containing all loaded addons.
+        /// </summary>
         internal static Dictionary<int, IAddon>? Addons;
 
+        /// <summary>
+        /// Loads all viable addons found in the addons directory.
+        /// </summary>
+        /// <returns>The loaded addons.</returns>
         internal static Dictionary<int, IAddon> LoadAddons()
         {
             // Local addons dictionary instance, will be returned at the end of the method.
@@ -65,6 +73,9 @@ namespace AppWithAddons.App.Handlers
             }
         }
 
+        /// <summary>
+        /// Initializes all loaded addons by calling the "Initialize()" interface method.
+        /// </summary>
         internal static void InitializeAddons()
         {
             // Since no addons depend from one another i can initialize them at the same time.
@@ -78,6 +89,10 @@ namespace AppWithAddons.App.Handlers
             }
         }
 
+        /// <summary>
+        /// Initializes the specified addon by calling the "Initialize()" interface method.
+        /// </summary>
+        /// <param name="addon"></param>
         private static void InitializeAddon(IAddon addon)
         {
             try
@@ -90,6 +105,9 @@ namespace AppWithAddons.App.Handlers
             }
         }
 
+        /// <summary>
+        /// Terminates all loaded addons by calling the "Terminate()" interface method.
+        /// </summary>
         internal static void TerminateAddons()
         {
             // Since no addons depend from one another i can terminate them at the same time.
@@ -103,6 +121,10 @@ namespace AppWithAddons.App.Handlers
             }
         }
 
+        /// <summary>
+        /// Terminates the specified addon by calling the "Terminate()" interface method.
+        /// </summary>
+        /// <param name="addon"></param>
         private static void TerminateAddon(IAddon addon)
         {
             try
