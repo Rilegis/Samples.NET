@@ -5,4 +5,4 @@
  An addon is NOT a complete program, and as such CANNOT run standalone.
 
 
- If you are looking for other ways to add functionalities to your progrma, take a look at my "AppWithPlugins" sample program (WIP).
+ If you are looking for other ways to add functionalities to your program, take a look at my "AppWithPlugins" sample program (WIP).
