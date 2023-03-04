@@ -15,6 +15,7 @@
     04/03/2023  Rilegis     5       Added some basic summaries.
     04/03/2023  Rilegis     6       Added some more basic summaries.
     04/03/2023  Rilegis     7       Fixed 'loadedAddons' dictionary key starting from -1.
+    04/03/2023  Rilegis     8       Added 'SearchOption' to 'DirectoryInfo.GetFiles()' to enable recursive search on all subdirectories.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -44,7 +45,7 @@ namespace AppWithAddons.App.Handlers
             try
             {
                 // Read all 'DLL' files located in the 'AddonsExtenxion' directory.
-                FileInfo[] files = new DirectoryInfo(Constants.AddonsDirectory).GetFiles("*.dll");
+                FileInfo[] files = new DirectoryInfo(Constants.AddonsDirectory).GetFiles("*.dll", SearchOption.AllDirectories);
 
                 // Read all found assembly files
                 Assembly assembly;
