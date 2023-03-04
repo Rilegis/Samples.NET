@@ -11,12 +11,21 @@
     Revision History  :
     Date        Author      Ref     Revision 
     04/03/2023  Rilegis     1       First code commit.
+    04/03/2023  Rilegis     2       Interface definition.
 **********************************************************************/
 
 namespace AppWithAddons.SDK
 {
     public interface IAddon
     {
+        public string Name { get; }
+        public string Description { get; }
+        public string Author { get; }
+        public string AuthorUrl { get; }
+        public string Version { get; }
 
+        public void Initialize();
+        public void Run();
+        public void Terminate();
     }
 }
