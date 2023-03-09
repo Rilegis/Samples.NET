@@ -11,6 +11,7 @@
     04/03/2023  Rilegis     1       First code commit.
     04/03/2023  Rilegis     2       Added "AddonsDirectory" existence check.
     04/03/2023  Rilegis     3       Added main program loop to execute a given addon.
+    09/03/2023  Rilegis     4       Modified logic due to accessibility change for class "AddonsHandler".
 **********************************************************************/
 
 using AppWithAddons.App.Handlers;
@@ -34,14 +35,13 @@ namespace AppWithAddons.App
                     Directory.CreateDirectory(Constants.AddonsDirectory);
                 }
 
-                // Load addons
-                AddonsHandler.Addons = AddonsHandler.LoadAddons(); // Might be changed to AddonsHandlers ah = new(); and do addon loading/initialization inside the constructor
-                AddonsHandler.InitializeAddons();
+                // Instantiates the "AddonsHandler" class, which automatically loads and initializes all addons.
+                AddonsHandler addonsHandler = new();
 
                 while (true)
                 {
                     Console.WriteLine($"Currently loaded addons:");
-                    foreach (KeyValuePair<int, IAddon> addon in AddonsHandler.Addons)
+                    foreach (KeyValuePair<int, IAddon> addon in addonsHandler.Addons)
                     {
                         Console.WriteLine($"{addon.Key}\t{addon.Value.Name}");
                     }
@@ -53,7 +53,7 @@ namespace AppWithAddons.App
                     {
                         if (int.TryParse(selection, out int id))
                         {
-                            if (AddonsHandler.Addons.TryGetValue(id, out IAddon addon))
+                            if (addonsHandler.Addons.TryGetValue(id, out IAddon addon))
                                 addon.Run();
                             else
                                 Console.WriteLine("Invalid selection.");
@@ -63,7 +63,8 @@ namespace AppWithAddons.App
                     }
                 }
 
-                AddonsHandler.TerminateAddons(); // Might be changed to ah.Dispose(); and do addon termination inside the deconstructor.
+                // Disposes of all resources (Kinda unnecessary due to .NET managed code, but i like it)
+                addonsHandler.Dispose();
             }
             catch (Exception ex)
             {

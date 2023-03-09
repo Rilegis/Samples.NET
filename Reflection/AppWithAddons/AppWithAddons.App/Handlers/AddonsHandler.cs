@@ -16,6 +16,7 @@
     04/03/2023  Rilegis     6       Added some more basic summaries.
     04/03/2023  Rilegis     7       Fixed 'loadedAddons' dictionary key starting from -1.
     04/03/2023  Rilegis     8       Added 'SearchOption' to 'DirectoryInfo.GetFiles()' to enable recursive search on all subdirectories.
+    09/03/2023  Rilegis     9       Changed class accessibility; Declared "AddonsHandler()" constructor; Implemented "IDisposable" interface.
 **********************************************************************/
 
 using AppWithAddons.SDK;
@@ -26,12 +27,28 @@ namespace AppWithAddons.App.Handlers
     /// <summary>
     /// This class contains all the methods needed to handle the addons.
     /// </summary>
-    internal static class AddonsHandler
+    internal class AddonsHandler : IDisposable
     {
         /// <summary>
         /// Dictionary instance containing all loaded addons.
         /// </summary>
-        internal static Dictionary<int, IAddon>? Addons;
+        internal Dictionary<int, IAddon>? Addons;
+
+        /// <summary>
+        /// Constructor; Instantiates a new "AddonsHandler" class and automatically loads and initializes all addons.
+        /// </summary>
+        internal AddonsHandler()
+        {
+            try
+            {
+                Addons = LoadAddons();
+                InitializeAddons();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[RUNTIME EXCEPTION] {ex.Message}");
+            }
+        }
 
         /// <summary>
         /// Loads all viable addons found in the addons directory.
@@ -83,7 +100,7 @@ namespace AppWithAddons.App.Handlers
         /// <summary>
         /// Initializes all loaded addons by calling the "Initialize()" interface method.
         /// </summary>
-        internal static void InitializeAddons()
+        internal void InitializeAddons()
         {
             // Since no addons depend from one another i can initialize them at the same time.
             try
@@ -115,7 +132,7 @@ namespace AppWithAddons.App.Handlers
         /// <summary>
         /// Terminates all loaded addons by calling the "Terminate()" interface method.
         /// </summary>
-        internal static void TerminateAddons()
+        internal void TerminateAddons()
         {
             // Since no addons depend from one another i can terminate them at the same time.
             try
@@ -137,6 +154,22 @@ namespace AppWithAddons.App.Handlers
             try
             {
                 addon.Terminate();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[RUNTIME EXCEPTION] {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Terminates all addons and clears "Addons" dictionary; Inherited by "IDisposable".
+        /// </summary>
+        public void Dispose()
+        {
+            try
+            {
+                TerminateAddons();
+                Addons.Clear();
             }
             catch (Exception ex)
             {
