@@ -13,7 +13,10 @@
     04/03/2023  Rilegis     1       First code commit.
     04/03/2023  Rilegis     2       Interface definition.
     04/03/2023  Rilegis     3       Added some basic summaries.
+    23/03/2023  Rilegis     4       Added definition for "OnUpdate" virtual method.
 **********************************************************************/
+
+using System;
 
 namespace AppWithAddons.SDK
 {
@@ -58,6 +61,14 @@ namespace AppWithAddons.SDK
         /// This method will be called every time the addons receives an execution request.
         /// </summary>
         public void Run();
+
+        /// <summary>
+        /// Empty implementation for "option" method.
+        /// </summary>
+        public virtual void OnUpdate()
+        {
+            
+        }
 
         /// <summary>
         /// Addon's termination method.
