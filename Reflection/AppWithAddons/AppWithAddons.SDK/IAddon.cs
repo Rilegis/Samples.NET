@@ -63,7 +63,7 @@ namespace AppWithAddons.SDK
         public void Run();
 
         /// <summary>
-        /// Empty implementation for "option" method.
+        /// Empty implementation for "optional" method.
         /// </summary>
         public virtual void OnUpdate()
         {
